@@ -54,3 +54,7 @@ report(datos_mirna[,2:13])
 report(datos_mirna[,2:13], by="batch", file="descriptivo")  #Exportación como Word
 report(datos_mirna[,2:13], by="batch", file="descriptivo", type="latex")  #O latex
 report(datos_mirna[,2:13], by="batch", file="descriptivo", type="csv")  #O csv
+
+#Exploración de asociaciones
+names(datos_mirna)[2:13]
+cluster_var(datos_mirna[,c(2:3, 5:6, 9:13)], margins=c(10, 6))
