@@ -4,7 +4,7 @@
 
 #Partial least squares
 library("mixOmics")
-pls1 <- pls(datos_mirna[,14:6622], as.numeric(datos_mirna$respuesta)-1)
+pls1 <- plsda(datos_mirna[,14:6622], datos_mirna$respuesta)
 pls1$loadings  #Pesos de cada variable en cada componente
 pls1$variates  #Valores de cada observación en la proyección
 
@@ -18,6 +18,12 @@ plotIndiv(pls1)
 pls_vars <- vip(pls1)
 pls_vars[order(pls_vars[,1], decreasing=TRUE),][1:10,]
 pls_vars[order(pls_vars[,2], decreasing=TRUE),][1:10,]
+
+#Valoración del modelo (capacidad predictiva)
+AUC_pls1 <- perf(pls1, auc=TRUE, nrepeat=100, validation="Mfold", dist="all")
+AUC_pls1$auc
+AUC_pls1$error.rate$overall
+
 
 #Regresión con penalización: LASSO
 library(glmnet)
@@ -51,6 +57,11 @@ fit_enet <- glmnet(as.matrix(datos_mirna[,14:6622]), datos_mirna$respuesta,
                    family="binomial", alpha=0.5)
 report(fit_enet, s=median(cv_rep2))  
 
+##Valoración del modelo (capacidad predictiva)
+library(BootValidation)
+AUC_enet <- vboot(fit_enet, as.matrix(datos_mirna[,14:6622]), datos_mirna$respuesta, 
+                  s=median(cv_rep2), nfolds = 5, B=20, cv_replicates=100, n_cores=4)
+
 #Heatmap con los resultados
 library(NMF)
 report_enet <- report(fit_enet, s=median(cv_rep2))
@@ -71,6 +82,6 @@ aheatmap(t(datos_mirna[order(datos_mirna$respuesta),selected_vars]),
 library(ranger)
 rf1 <- ranger(respuesta ~., data=datos_mirna[,c(10, 14:6622)], 
               importance = "impurity_corrected")
-rf1  #Resultados del modelo
+rf1  #Resultados del modelo (incluyendo estimación del error OOB)
 rf_varsel <- importance_pvalues(rf1, method = "janitza")  #Selección de variables
 rf_varsel[order(rf_varsel[,"pvalue"]),][1:50,]
