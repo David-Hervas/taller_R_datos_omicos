@@ -34,7 +34,7 @@ check_quality(datos_mirna$progresion)
 
 #Arreglar fechas
 datos_mirna <- fix.dates(datos_mirna)
-check_quality(datos_mirna$f_nacimiento)
+check_quality(datos_mirna$f_ultimo_seguimiento)
 check_quality(datos_mirna$f_inclusion)
 #Ejemplo más extremo:
 mydata<-data.frame(Dates1=c("25/06/1983", "25-08/2014", "2001/11/01", "2008-10-01"),
