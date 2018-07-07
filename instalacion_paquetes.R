@@ -1,6 +1,6 @@
 #Instalación de paquetes necesarios
 
 install.packages(c("glmnet", "randomForest", "clickR", "pbapply", "mixOmics",
-                   "sNPLS", "Rtsne", "car"))
+                   "sNPLS", "Rtsne", "car", "ordinal"))
 source("https://bioconductor.org/biocLite.R")
 biocLite("pcaMethods")

@@ -25,7 +25,7 @@ check_quality(datos_mirna$sexo)  #Variable categórica con niveles erróneos
 check_quality(datos_mirna$progresion)  #Variable categórica con nivels erróneos
 check_quality(datos_mirna$slp_meses)  #Variable numérica codificada como factor
 check_quality(datos_mirna$f_inclusion)  #Variable de fecha codificada como factor
-check_quality(datos_mirna$ecog)  #Variable categórica codificada como numérica
+check_quality(datos_mirna$batch)  #Variable categórica codificada como numérica
 
 #Arreglar factores
 datos_mirna <- fix.factors(datos_mirna)
@@ -51,6 +51,6 @@ descriptive(datos_mirna[,1:13])
 
 #Descriptivo formato publicación
 report(datos_mirna[,2:13])
-report(datos_mirna[,2:13], by="ecog", file="descriptivo")  #Exportación como Word
-report(datos_mirna[,2:13], by="ecog", file="descriptivo", type="latex")  #O latex
-report(datos_mirna[,2:13], by="ecog", file="descriptivo", type="csv")  #O csv
+report(datos_mirna[,2:13], by="batch", file="descriptivo")  #Exportación como Word
+report(datos_mirna[,2:13], by="batch", file="descriptivo", type="latex")  #O latex
+report(datos_mirna[,2:13], by="batch", file="descriptivo", type="csv")  #O csv
