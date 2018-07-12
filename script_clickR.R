@@ -17,7 +17,7 @@ datos_mirna <- nice_names(datos_mirna_raw)  #Nombres estandarizados
 names(datos_mirna)[1:50]
 descriptive(datos_mirna[,1:13])  #Variables 1-13, parte clínica. El resto miRNAs.
 mine.plot(datos_mirna[,1:13])  #Mapa de valores faltantes
-mine.plot(datos_mirna[,1:13], what="x==0")  #Podemos usar cualquier expresión lógica
+mine.plot(datos_mirna[,1:13], what="x==1")  #Podemos usar cualquier expresión lógica
 mine.plot(datos_mirna[,1:13], what="x>20 & x<30")
 
 #Control de calidad
